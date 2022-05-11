@@ -2,19 +2,12 @@
   "name": "@cannislabs/react-lib",
   "version": "0.0.1",
   "description": "React library for Cannis Labs",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "dependencies": {
+  "peerDependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@mui/material": "^5.6.4",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "sweetalert2": "^11.4.13"
-  },
-  "devDependencies": {
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@vitejs/plugin-react": "^1.3.0",
