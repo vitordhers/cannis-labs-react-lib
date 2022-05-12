@@ -1,18 +1,11 @@
-import {
-  FormControl,
-  TextField,
-  FormControlTypeMap,
-  TextFieldProps,
-} from "@mui/material";
-import React, { FC } from "react";
-import {
-  useInput,
-  Validator,
-} from "../../../hooks";
-import { toTitleCase } from "../../../utils/to-titlecase.prototype.function";
-import { getValidator } from "../../../validators";
+import { FormControl, TextField, FormControlTypeMap, TextFieldProps } from '@mui/material';
+import * as React from 'react';
+import { FC } from 'react';
+import { useInput, Validator } from '../../../hooks';
+import { toTitleCase } from '../../../utils/to-titlecase.prototype.function';
+import { getValidator } from '../../../validators';
 
-import styles from "./TextInput.module.scss";
+// import styles from "./TextInput.module.scss";
 
 interface TextInputProps {
   control: Partial<FormControlTypeMap>;
@@ -26,36 +19,23 @@ const TextInput: FC<TextInputProps> = ({
   label,
   placeholder,
   control: { props: controlProps },
-  textField: {
-    inputProps,
-    variant: textFieldVariant,
-  },
+  textField: { inputProps, variant: textFieldVariant },
   validators,
 }) => {
-  const validatorsArray: Validator[] =
-    [];
+  const validatorsArray: Validator[] = [];
   if (validators?.length) {
-    validators.map(
-      ({ name, params, message }) => {
-        let fn = getValidator(name);
-        validatorsArray.push({
-          name,
-          params,
-          fn,
-          message,
-        });
-      }
-    );
+    validators.map(({ name, params, message }) => {
+      const fn = getValidator(name);
+      validatorsArray.push({
+        name,
+        params,
+        fn,
+        message,
+      });
+    });
   }
 
-  const {
-    value,
-    isValid,
-    hasError,
-    valueChangeHandler,
-    inputBlurHandler,
-    errors,
-  } = useInput(validatorsArray);
+  const { value, isValid, hasError, valueChangeHandler, inputBlurHandler, errors } = useInput(validatorsArray);
 
   const onChangeValue = (e: any) => {
     valueChangeHandler(e.target.value);
@@ -65,13 +45,9 @@ const TextInput: FC<TextInputProps> = ({
     <FormControl
       classes={controlProps?.classes}
       color={controlProps?.color}
-      fullWidth={
-        controlProps?.fullWidth
-      }
+      fullWidth={controlProps?.fullWidth}
       focused={controlProps?.focused}
-      hiddenLabel={
-        controlProps?.hiddenLabel
-      }
+      hiddenLabel={controlProps?.hiddenLabel}
       margin={controlProps?.margin}
       size={controlProps?.size}
       sx={controlProps?.sx}
@@ -84,16 +60,9 @@ const TextInput: FC<TextInputProps> = ({
         variant={textFieldVariant}
         onChange={onChangeValue}
         onBlur={inputBlurHandler}
-        helperText={
-          hasError &&
-          toTitleCase(
-            errors
-              .map((err) => err)
-              .join(", ")
-          )
-        }
+        helperText={hasError && toTitleCase(errors.map((err) => err).join(', '))}
         error={hasError}
-        value={value || ""}
+        value={value || ''}
       />
     </FormControl>
   );

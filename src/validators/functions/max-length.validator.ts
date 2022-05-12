@@ -1,12 +1,7 @@
-import { ValidatorFn } from "../types/validator-function.type";
+import { ValidatorFn } from '../types/validator-function.type';
 
-export const maxLength: ValidatorFn<
-  string
-> = (
-  value?: string,
-  maxLength?: number
-) => {
-  if (!maxLength) return true;
+export const maxLength: ValidatorFn<string> = (value?: string, validatorMaxLength?: number) => {
+  if (!validatorMaxLength) return true;
   if (!value) return true;
-  return value.length <= maxLength;
+  return value.length <= validatorMaxLength;
 };

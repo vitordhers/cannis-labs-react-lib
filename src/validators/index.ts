@@ -1,4 +1,4 @@
-export * from "./functions";
-export * from "./types";
+export * from './functions';
+export * from './types';
 
-export * from "./get-validator.function";
+export * from './get-validator.function';

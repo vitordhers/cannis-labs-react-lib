@@ -1,35 +1,23 @@
-import {
-  maxLength,
-  minLength,
-  pattern,
-  required,
-  length,
-  max,
-  min,
-} from ".";
-import { ValidatorNames } from "./types";
+import { maxLength, minLength, pattern, required, length, max, min } from '.';
+import { ValidatorNames } from './types';
 
-export const getValidator = (
-  name: ValidatorNames
-) => {
+export const getValidator = (name: ValidatorNames) => {
   switch (name) {
-    case "required":
+    case 'required':
       return required;
-    case "pattern":
+    case 'pattern':
       return pattern;
-    case "maxLength":
+    case 'maxLength':
       return maxLength;
-    case "minLength":
+    case 'minLength':
       return minLength;
-    case "length":
+    case 'length':
       return length;
-    case "min":
+    case 'min':
       return min;
-    case "max":
+    case 'max':
       return max;
     default:
-      throw new Error(
-        "Validator is not valid for text!"
-      );
+      throw new Error('Validator is not valid for text!');
   }
 };

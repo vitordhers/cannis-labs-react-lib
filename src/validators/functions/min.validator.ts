@@ -1,9 +1,7 @@
-import { ValidatorFn } from "../types";
+import { ValidatorFn } from '../types';
 
-export const min: ValidatorFn<
-  number
-> = (value?: number, min?: number) => {
-  if (!min) return true;
+export const min: ValidatorFn<number> = (value?: number, validatorMin?: number) => {
+  if (!validatorMin) return true;
   if (!value) return false;
-  return value <= min;
+  return value <= validatorMin;
 };

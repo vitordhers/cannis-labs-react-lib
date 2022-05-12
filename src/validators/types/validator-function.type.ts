@@ -1,4 +1,1 @@
-export type ValidatorFn<T> = (
-  value?: T,
-  args?: any
-) => boolean;
+export type ValidatorFn<T> = (value?: T, args?: any) => boolean;

@@ -1,12 +1,7 @@
-import { ValidatorFn } from "../types/validator-function.type";
+import { ValidatorFn } from '../types/validator-function.type';
 
-export const length: ValidatorFn<
-  string
-> = (
-  value?: string,
-  length?: number
-) => {
+export const length: ValidatorFn<string> = (value?: string, validatorLength?: number) => {
   if (!length) return true;
   if (!value) return false;
-  return value.length === length;
+  return value.length === validatorLength;
 };

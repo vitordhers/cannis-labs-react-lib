@@ -1,10 +1,5 @@
-import { BaseValidator } from "./base-validator.type";
+import { BaseValidator } from './base-validator.type';
 
-type NumberOnlyValidators =
-  | "min"
-  | "max"
-  | "pattern";
+type NumberOnlyValidators = 'min' | 'max' | 'pattern';
 
-export type NumberValidators =
-  | NumberOnlyValidators
-  | BaseValidator;
+export type NumberValidators = NumberOnlyValidators | BaseValidator;

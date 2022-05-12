@@ -1,3 +1,1 @@
-export type BaseValidator =
-  | "required"
-  | "length";
+export type BaseValidator = 'required' | 'length';

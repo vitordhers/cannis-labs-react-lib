@@ -1,7 +1,4 @@
-import {
-  ValidatorFn,
-  ValidatorNames,
-} from "../../validators";
+import { ValidatorFn, ValidatorNames } from '../../validators';
 
 export interface Validator<T = any> {
   name: ValidatorNames;

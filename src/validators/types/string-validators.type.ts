@@ -1,10 +1,5 @@
-import { BaseValidator } from "./base-validator.type";
+import { BaseValidator } from './base-validator.type';
 
-type StringOnlyValidators =
-  | "minLength"
-  | "maxLength"
-  | "pattern";
+type StringOnlyValidators = 'minLength' | 'maxLength' | 'pattern';
 
-export type StringValidators =
-  | StringOnlyValidators
-  | BaseValidator;
+export type StringValidators = StringOnlyValidators | BaseValidator;
