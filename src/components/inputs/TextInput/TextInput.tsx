@@ -8,7 +8,7 @@ import React, { FC } from "react";
 import {
   useInput,
   Validator,
-} from "../../../hooks/use-input";
+} from "../../../hooks";
 import { toTitleCase } from "../../../utils/to-titlecase.prototype.function";
 import { getValidator } from "../../../validators";
 
