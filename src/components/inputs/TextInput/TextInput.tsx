@@ -1,31 +1,36 @@
-import { FormControl, TextField, FormControlTypeMap, TextFieldProps } from '@mui/material';
+import { TextInput as TxtInput, TextInputProps as TxtInpurProps } from '@mantine/core';
+import { useForm } from '@mantine/form';
 import * as React from 'react';
 import { FC } from 'react';
 import { useInput, Validator } from '../../../hooks';
 import { toTitleCase } from '../../../utils/to-titlecase.prototype.function';
-import { getValidator } from '../../../validators';
+import { getValidator, ValidatorFn } from '../../../validators';
 
 // import styles from "./TextInput.module.scss";
 
 interface TextInputProps {
-  control: Partial<FormControlTypeMap>;
-  textField: TextFieldProps;
+  props?: TxtInpurProps;
   label?: string;
   placeholder?: string;
-  validators?: Validator[];
+  disabled?: boolean;
+  initialValue?: string;
+  validators?: Validator<string>[];
+  valueChangeHandler: (e: string) => any;
 }
 
-const TextInput: FC<TextInputProps> = ({
+export const TextInput: FC<TextInputProps> = ({
+  valueChangeHandler: changeHandler,
+  props = {},
   label,
   placeholder,
-  control: { props: controlProps },
-  textField: { inputProps, variant: textFieldVariant },
-  validators,
+  disabled = false,
+  initialValue = '',
+  validators = [],
 }) => {
-  const validatorsArray: Validator[] = [];
+  const validatorsArray: Validator<string>[] = [];
   if (validators?.length) {
     validators.map(({ name, params, message }) => {
-      const fn = getValidator(name);
+      const fn = getValidator(name) as ValidatorFn<string>;
       validatorsArray.push({
         name,
         params,
@@ -35,37 +40,36 @@ const TextInput: FC<TextInputProps> = ({
     });
   }
 
+  const form = useForm({
+    initialValues: {
+      value: initialValue,
+    },
+
+    validate: {
+      value: (val) =>
+        validatorsArray.map((validator) =>
+          validator.fn && validator.fn(val, validator.params) ? null : validator.message,
+        ),
+    },
+  });
+
   const { value, isValid, hasError, valueChangeHandler, inputBlurHandler, errors } = useInput(validatorsArray);
 
-  const onChangeValue = (e: any) => {
+  const onInput = (e: any) => {
+    console.log(e);
+    changeHandler(e.target.value);
     valueChangeHandler(e.target.value);
   };
 
   return (
-    <FormControl
-      classes={controlProps?.classes}
-      color={controlProps?.color}
-      fullWidth={controlProps?.fullWidth}
-      focused={controlProps?.focused}
-      hiddenLabel={controlProps?.hiddenLabel}
-      margin={controlProps?.margin}
-      size={controlProps?.size}
-      sx={controlProps?.sx}
-      variant={controlProps?.variant}
-    >
-      <TextField
-        inputProps={inputProps}
-        label={label}
-        placeholder={placeholder}
-        variant={textFieldVariant}
-        onChange={onChangeValue}
-        onBlur={inputBlurHandler}
-        helperText={hasError && toTitleCase(errors.map((err) => err).join(', '))}
-        error={hasError}
-        value={value || ''}
-      />
-    </FormControl>
+    <TxtInput
+      label={label}
+      placeholder={placeholder}
+      disabled={disabled}
+      {...form.getInputProps('value')}
+      {...props}
+      onBlur={inputBlurHandler}
+      onInput={onInput}
+    />
   );
 };
-
-export default TextInput;
